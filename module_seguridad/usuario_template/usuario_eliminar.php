@@ -1,8 +1,9 @@
 <?php
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://panca.informaticapp.com/permisos/'.$_GET['perm_id'],
+  CURLOPT_URL => 'https://panca.informaticapp.com/usuarios/'.$_GET['usu_id'],
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -19,5 +20,5 @@ $response = curl_exec($curl);
 
 curl_close($curl);
 $data = json_decode($response, true);
-header("Location: permiso_html.php");
+header("Location: usuario_html.php");
 ?>

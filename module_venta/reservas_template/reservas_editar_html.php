@@ -1,23 +1,22 @@
-<?php
+<?php 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		$curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://panca.informaticapp.com/personas',
+        CURLOPT_URL => 'https://panca.informaticapp.com/reservas/'.$_POST['res_id'],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => 0,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_CUSTOMREQUEST => 'PUT',
         CURLOPT_POSTFIELDS => 
-            'per_nombres='.$_POST["per_nombres"].
-            '&per_apellidos='.$_POST["per_apellidos"].
-            '&per_telefono='.$_POST["per_telefono"].
-            '&per_dni='.$_POST["per_dni"].
-            '&per_correo='.$_POST["per_correo"],
+            'per_id='.$_POST["per_id"].
+            '&res_fecha_pedido='.$_POST["res_fecha_pedido"].
+            '&res_fecha_reserva='.$_POST["res_fecha_reserva"].
+            '&res_hora='.$_POST["res_hora"],
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/x-www-form-urlencoded',
             'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
@@ -28,44 +27,14 @@
 
 		curl_close($curl);
 		$data = json_decode($response, true);
-
-        /*Agregando la persona a cliente */
-        $idpersona = $data["per_id"];
-        //var_dump($idpersona);
-
-		$curl = curl_init();
-
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://panca.informaticapp.com/trabajadores',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 
-        'per_id='.$idpersona.
-        '&tra_sueldo='.$_POST["tra_sueldo"].
-        '&titra_id='.$_POST["titra_id"],
-        CURLOPT_HTTPHEADER => array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
-        ),
-        ));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$data2 = json_decode($response, true);
-        //var_dump($data2);
-		header("Location: trabajador_html.php");
+//var_dump($data);
+		header("Location: reservas_html.php");
 	}else{
-		/* Tabla de Tipo Trabajador*/
-		$curl = curl_init();
+        session_start();
+        $curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'http://cevicherias.informaticapp.com/TipoTrabajador',
+		CURLOPT_URL => 'https://panca.informaticapp.com/reservas/'.$_GET['res_id'],
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -74,14 +43,25 @@
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => 'GET',
 		CURLOPT_HTTPHEADER => array(
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
+			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
 		),
 		));
 
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		$tipoTrabajador = json_decode($response, true);
+		$data = json_decode($response, true);
+
+        //Adaptando la hora
+        $hora_desde_bd = $data["Detalles"][0]['res_hora'];
+
+        // Convertimos la hora desde la base de datos a un objeto DateTime de PHP
+        $hora_datetime = new DateTime($hora_desde_bd);
+
+        // Formateamos la hora en el formato requerido por el input type="time" (HH:mm)
+        $hora_formateada = $hora_datetime->format('H:i');
+
+        $valorGlobal = $_SESSION['mi_variable_global'];
 	}
 ?>
 <!DOCTYPE html>
@@ -89,7 +69,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Registrar Trabajador</title>
+	<title>Modificar Trabajador</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="../../css/styles.css" rel="stylesheet" />
@@ -120,7 +100,7 @@
             </ul>
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
+        <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                     <div class="nav">
@@ -136,10 +116,10 @@
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
-                                    <a class="nav-link" href="../../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
-                                    <a class="nav-link" href="../../cliente_template/cliente_html.php">Registrar Clientes</a>
-                                    <a class="nav-link" href="../../reservas_template/reservas_html.php">Registrar Reservas</a>
+                                    <a class="nav-link" href="../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -149,9 +129,9 @@
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
-                                    <a class="nav-link" href="../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
-                                    <a class="nav-link" href="../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
+                                    <a class="nav-link" href="../../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
@@ -196,47 +176,26 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Registrar Trabajador</h1>
+                        <h1 class="mt-4">Modificar Reserva de "<?= $data["Detalles"][0]['per_nombres'] ?>"</h1>
                         <div class="card mb-4">
                             <div class="card-body">
 
-                                <form method="post">
-								<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Nombres</label>
-                                        <input type="text" name="per_nombres" class="form-control" aria-describedby="emailHelp">
+							<form method="POST">
+								    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Fecha de la reserva</label>
+                                        <input type="hidden" name="res_id" value="<?= $data["Detalles"][0]['res_id'] ?>" class="form-control" aria-describedby="emailHelp">
+                                        <input type="hidden" name="per_id" value="<?= $data["Detalles"][0]['per_id'] ?>" class="form-control" aria-describedby="emailHelp">
+                                        <input type="hidden" name="res_fecha_pedido" value="<?= $data["Detalles"][0]['res_fecha_pedido'] ?>" class="form-control" aria-describedby="emailHelp">
+                                       <!-- <input type="text" name="per_nombres" id="fecha" value="</?= date('Y-m-d') ?>" required class="form-control" aria-describedby="emailHelp">-->
+                                        <input type="date" name="res_fecha_reserva" value="<?= $data["Detalles"][0]['res_fecha_reserva'] ?>" class="form-control" aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Apellidos</label>
-                                        <input type="text" name="per_apellidos" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Telefono</label>
-                                        <input type="text" name="per_telefono" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">DNI</label>
-                                        <input type="text" name="per_dni" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Correo</label>
-                                        <input type="text" name="per_correo" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1"  class="form-label">Sueldo</label>
-                                        <input type="text" name="tra_sueldo" class="form-control">
+                                        <label for="exampleInputEmail1" class="form-label">Hora</label>
+                                        <input type="time" name="res_hora" value="<?= $hora_formateada ?>" class="form-control" aria-describedby="emailHelp">
                                     </div>
 
-									<div class="mb-3">
-										<label for="exampleInputEmail1" class="form-label">Asignar Tipo Trabajador</label>
-                                        <select name="titra_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
-											<?php foreach($tipoTrabajador["Detalles"] as $TipoTrabajador):?>	
-											<option type="text" value="<?=$TipoTrabajador["titra_id"]?>"><?= $TipoTrabajador["titra_rol"] ?></option>
-											<?php endforeach?>
-										</select>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary">Registrar</button>
-                                    <a href="trabajador_html.php" class="btn btn-danger">Cancelar</a>
+                                    <button type="submit" class="btn btn-primary">Modificar</button>
+                                    <a href="reservas_html.php" class="btn btn-danger">Cancelar</a>
                                 </form>
                             </div>
                         </div>

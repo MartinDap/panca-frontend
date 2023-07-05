@@ -4,7 +4,7 @@
 		$curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://cevicherias.informaticapp.com/trabajadores/'.$_POST['tra_id'],
+        CURLOPT_URL => 'https://panca.informaticapp.com/trabajadores/'.$_POST['tra_id'],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -12,10 +12,13 @@
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'PUT',
-        CURLOPT_POSTFIELDS => 'per_id='.$_POST["per_id"].'&tra_sueldo='.$_POST["tra_sueldo"].'&titra_id='.$_POST["titra_id"].'&sucu_id='.$_POST["sucu_id"],
+        CURLOPT_POSTFIELDS => 
+            'per_id='.$_POST["per_id"].
+            '&tra_sueldo='.$_POST["tra_sueldo"].
+            '&titra_id='.$_POST["titra_id"],
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
+            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
         ),
         ));
 
@@ -28,7 +31,7 @@
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/personas/'.$_POST['per_id'],
+		CURLOPT_URL => 'https://panca.informaticapp.com/personas/'.$_POST['per_id'],
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -60,29 +63,7 @@
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/sucursal',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWRlc2djJZYVh2dG9VSmIzN05wQ3J1N3llbUFHSS9DOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlczdJcFJQeGhVQWN6TnJTRk4vVFpHYnkwMk1HR0JKUw=='
-		),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$sucursal = json_decode($response, true);
-
-
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/trabajadores/'.$_GET['tra_id'],
+		CURLOPT_URL => 'https://panca.informaticapp.com/trabajadores/'.$_GET['tra_id'],
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -104,7 +85,7 @@
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/TipoTrabajador',
+		CURLOPT_URL => 'https://panca.informaticapp.com/TipoTrabajador',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -113,7 +94,7 @@
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => 'GET',
 		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWRlc2djJZYVh2dG9VSmIzN05wQ3J1N3llbUFHSS9DOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlczdJcFJQeGhVQWN6TnJTRk4vVFpHYnkwMk1HR0JKUw=='
+			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
 		),
 		));
 
@@ -162,7 +143,7 @@
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Principal
@@ -175,12 +156,10 @@
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registrar Pedidos</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Ventas</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Clientes</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de pago</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de pedido</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de reserva</a>
+                                    <a class="nav-link" href="../../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -190,11 +169,9 @@
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registrar Usuarios</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Perfiles</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Permisos</a>
-                                    <a class="nav-link" href="empresa_template/empresa_html.php">Registrar Empresa</a>
-                                    <a class="nav-link" href="sucursal_template/sucursal_html.php">Registrar Sucursales</a>
+                                    <a class="nav-link" href="../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
@@ -205,11 +182,11 @@
                             </a>
                             <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registrar Productos</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar tipo de producto</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Stock</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Proveedores</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Pagos</a>
+                                    <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
+                                    <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
+                                    <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div> 
@@ -221,14 +198,8 @@
                             </a>
                             <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Reporte de Ventas</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Compras</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Pedidos</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Clientes</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de stock</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Reserva</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Comentarios</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
                                 </nav>
                             </div> 
                         </div>
@@ -286,18 +257,6 @@
 											<?php endforeach?>
 										</select>
                                     </div>
-
-									<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Asignar sucursal al trabajador</label>
-                                        <select name="sucu_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
-                                        <option type="text" value="<?= $data["Detalles"][0]['sucu_id'] ?>"><?= $data["Detalles"][0]['sucu_nombre'] ?> - Seleccionado</option>
-											<?php foreach($sucursal["Detalles"] as $sucursales):?>	
-                                            <option type="text" value="<?=$sucursales["sucu_id"]?>"><?= $sucursales["sucu_nombre"] ?></option>
-											<?php endforeach?>
-										</select>
-                                    </div>
-
-
                                     <button type="submit" class="btn btn-primary">Modificar</button>
                                     <a href="trabajador_html.php" class="btn btn-danger">Cancelar</a>
                                 </form>

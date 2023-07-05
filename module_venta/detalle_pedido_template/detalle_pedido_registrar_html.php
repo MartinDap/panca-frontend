@@ -1,37 +1,38 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    $curl = curl_init();
+        $curl = curl_init();
 
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://panca.informaticapp.com/DetallePedido',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS => 
-      'ped_id='.$_POST["ped_id"].
-      '&depe_estado_comida='.$_POST["depe_estado_comida"].
-      '&depe_fecha='.$_POST["depe_fecha"].
-      '&tipa_id='.$_POST["tipa_id"].
-      '&depe_num_mesa='.$_POST["depe_num_mesa"].
-      '&deco_info_compra='.$_POST["deco_info_compra"].
-      '&tra_id='.$_POST["tra_id"].
-      '&ticon_id='.$_POST["peticon_id_id"],
-      CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/x-www-form-urlencoded',
-        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VBR04xOEVqRXdCOC5kenFDZFg1NW5OU3U2NTU5LkFHOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlcTNvN3M5Ly84Lmh6T3FneWdVcjZGcVdSN1hiYzNyQw=='
-      ),
-    ));
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://panca.informaticapp.com/DetallePedido',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => 
+          'ped_id='.$_POST["ped_id"].
+          '&depe_estado_comida='.$_POST["depe_estado_comida"].
+          '&depe_fecha='.$_POST["depe_fecha"].
+          '&tipa_id='.$_POST["tipa_id"].
+          '&depe_num_mesa='.$_POST["depe_num_mesa"].
+          '&deco_info_compra='.$_POST["deco_info_compra"].
+          '&tra_id='.$_POST["tra_id"].
+          '&ticon_id='.$_POST["ticon_id"],
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/x-www-form-urlencoded',
+            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='  ),
+        ));
 
 		$response = curl_exec($curl);
 
 		curl_close($curl);
 		$data = json_decode($response, true);
-		header("Location: venta_html.php");
+		header("Location: detalle_pedido_html.php");
 
 	}else{
 
@@ -49,9 +50,16 @@
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => 'GET',
       CURLOPT_HTTPHEADER => array(
-        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VBR04xOEVqRXdCOC5kenFDZFg1NW5OU3U2NTU5LkFHOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlcTNvN3M5Ly84Lmh6T3FneWdVcjZGcVdSN1hiYzNyQw=='
-      ),
+        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='   ),
     ));
+    
+    
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		$pedidos = json_decode($response, true);	
+
+
 
 	}
 ?>
@@ -94,7 +102,7 @@
         <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Principal
@@ -107,10 +115,10 @@
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_venta/pedidos_template/pedidos_html.php">Registrar Pedidos</a>
-                                    <a class="nav-link" href="module_venta/module_cliente/cliente_html.php">Registrar Clientes</a>
-                                    <a class="nav-link" href="module_venta/detalle_pedido_template/detalle_pedido_html.php">Detalles del Pedido</a>
-                                    <a class="nav-link" href="module_venta/reservas_template/reservas_html.php">Detalles de Reserva</a>
+                                    <a class="nav-link" href="../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -120,11 +128,10 @@
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajadores</a>
-                                    <a class="nav-link" href="module_seguridad/usuario_template/usuario_html.php">Registrar Perfiles</a>
-                                    <a class="nav-link" href="module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
-                                    <a class="nav-link" href="module_seguridad/empresa_template/empresa_html.php">Registrar Empresa</a>
-                                    
+                                    <a class="nav-link" href="../../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCompras" aria-expanded="false" aria-controls="collapseLayouts">
@@ -134,13 +141,14 @@
                             </a>
                             <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_compras/platos_template/platos_html.php">Registrar Platos</a>
-                                    <a class="nav-link" href="module_compras/tipo_producto_template/tipo_producto_html.php">Registrar tipo de producto</a>
-                                    <a class="nav-link" href="module_compras/productos_template/productos_html.php">Registrar Productos</a>
-                                    <a class="nav-link" href="module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>
-                                    <a class="nav-link" href="module_compras/inventario_template/inventario_html.php">Inventario</a>
+                                    <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
+                                    <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
+                                    <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
-                            </div>
+                            </div> 
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReportes" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="bi bi-clipboard-data-fill"></i></i></div>
@@ -149,23 +157,11 @@
                             </a>
                             <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_reportes/reportes_clientes_template/reportes_clientes_html.php">Reporte de Clientes</a>
-                                    <a class="nav-link" href="module_reportes/reportes_pedidos_template/reportes_pedidos_html.php">Reporte de Pedidos</a>
-                                <a class="nav-link" href="module_reportes/reportes_productos_template/reportes_productos_html.php">Reporte de Inventario</a>
-                                    <a class="nav-link" href="module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
-                                    <a class="nav-link" href="module_reportes/reportes_reservas_template/reportes_reservas_html.php">Reporte de Reservas</a>
-                                    <a class="nav-link" href="module_reportes/reportes_ventas_template/reportes_ventas_html.php">Reporte de Ventas</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
                                 </nav>
                             </div> 
                         </div>
-                        
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Iniciado sesión como:</div>
-                        Trabajador
-                    </div>
-                </nav>
-            </div>
 
 			<!-- TABLA -->
             <div id="layoutSidenav_content">
@@ -205,7 +201,13 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1"  class="form-label">Estado del pedido</label>
                                 <input type="text" name="ped_estado_pedido" class="form-control">
-                            </div>                                               
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1"  class="form-label">Detalle del pedido</label>
+                                <input type="text" name="ped_detalles" class="form-control">
+                            </div>
+                    
 
                             <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Seleccione el metodo de pago</label>
@@ -227,7 +229,7 @@
 
 
                                     <button type="submit" class="btn btn-primary">Registrar</button>
-                                    <a href="venta_html.php" class="btn btn-danger">Cancelar</a>
+                                    <a href="detalle_pedido_html.php" class="btn btn-danger">Cancelar</a>
                                 </form>
                             </div>
                         </div>
@@ -253,3 +255,4 @@
         <script src="../../js/datatables-simple-demo.js"></script>
     </body>
 </html>
+

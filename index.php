@@ -50,12 +50,10 @@
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_venta/pedido_template/pedido_html.php">Registrar Pedidos</a>
-                                    <a class="nav-link" href="module_venta/venta_template/venta_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="module_venta/pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="module_venta/detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
                                     <a class="nav-link" href="module_venta/cliente_template/cliente_html.php">Registrar Clientes</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de pago</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de pedido</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de reserva</a>
+                                    <a class="nav-link" href="module_venta/reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -65,9 +63,9 @@
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="trabajador_template/trabajadores_html.php">Registrar Trabajadores</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Perfiles</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Permisos</a>
+                                    <a class="nav-link" href="module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
@@ -94,14 +92,8 @@
                             </a>
                             <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_reportes/reportes_ventas_template/reportes_ventas_html.php">Reporte de Ventas</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Compras</a>
-                                    <a class="nav-link" href="module_reportes/reportes_pedidos_template/reportes_pedidos_html.phpl">Reporte de Pedidos</a>
-                                    <a class="nav-link" href="module_reportes/reportes_clientes_template/reportes_clientes_html.php">Reporte de Clientes</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de stock</a>
-                                    <a class="nav-link" href="module_reportes/reportes_reserva_template/reportes_reserva_html.php">Reporte de Reserva</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Comentarios</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
+                                    <a class="nav-link" href="module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="module_reportes/reportes_reclamos_template/reportes_reclamos_html.phpl">Reporte de Reclamos</a>
                                 </nav>
                             </div> 
                         </div>

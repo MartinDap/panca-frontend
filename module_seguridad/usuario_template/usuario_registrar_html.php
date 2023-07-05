@@ -1,9 +1,10 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
+
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/usuarios',
+		CURLOPT_URL => 'https://panca.informaticapp.com/usuarios',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -12,16 +13,16 @@
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => 'POST',
 		CURLOPT_POSTFIELDS => 
-		'usu_nombres='.$_POST["usu_nombres"].
-		'&usu_apellidos='.$_POST["usu_apellidos"].
-		'&usu_usuario='.$_POST["usu_usuario"].
-		'&usu_clave='.$_POST["usu_clave"].
-		'&tiad_id='.$_POST["tiad_id"].
-		'&empr_id='.$_POST["empr_id"].
-		'&sucu_id='.$_POST["sucu_id"],
+			'usu_usuario='.$_POST["usu_usuario"].
+			'&usu_clave='.$_POST["usu_clave"].
+			'&tiad_id='.$_POST["tiad_id"].
+			'&usu_nombres='.$_POST["usu_nombres"].
+			'&usu_apellidos='.$_POST["usu_apellidos"].
+			'&usu_usuario_token='.$_POST["usu_usuario_token"].
+			'&usu_llave_secreta='.$_POST["usu_llave_secreta"],
 		CURLOPT_HTTPHEADER => array(
 			'Content-Type: application/x-www-form-urlencoded',
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
+			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
 		),
 		));
 
@@ -29,14 +30,14 @@
 
 		curl_close($curl);
 		$data = json_decode($response, true);
-		var_dump($data);
-		//header("Location: usuario_html.php");
+		
+		header("Location: usuario_html.php");
 	}else{
 		/* tabla relacionada*/
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/TipoAdmin',
+		CURLOPT_URL => 'https://panca.informaticapp.com/TipoAdmin',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -45,7 +46,7 @@
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => 'GET',
 		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
+			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
 		),
 		));
 
@@ -53,50 +54,6 @@
 
 		curl_close($curl);
 		$tipoAdmin = json_decode($response, true);
-
-		/* tabla relacionada*/
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/empresa',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
-		),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$empresa = json_decode($response, true);
-
-		/* tabla relacionada*/
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/sucursal',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
-		),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$sucursal = json_decode($response, true);
 	}
 ?>
 <!DOCTYPE html>
@@ -104,7 +61,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Usuarios</title>
+	<title>Registrar Empresa</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="../../css/styles.css" rel="stylesheet" />
@@ -116,18 +73,106 @@
 </head>
 
 <body class="sb-nav-fixed">
-       
+        <!-- MAIN -->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">BRAXLY</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-7 me-2 me-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Editar perfil</a></li>
+                        <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                    <div class="nav">
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Principal
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Modulos</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseVentas" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="bi bi-receipt-cutoff"></i></div>
+                                Ventas
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="../../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../../reservas_template/reservas_html.php">Registrar Reservas</a>
+                                </nav>
+                            </div>  
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="bi bi-shield-check"></i></div>
+                                Seguridad
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
+                                </nav>
+                            </div>  
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCompras" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="bi bi-bag-fill"></i></div>
+                                Compras
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
+                                    <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
+                                    <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
+                                </nav>
+                            </div> 
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReportes" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="bi bi-clipboard-data-fill"></i></i></div>
+                                Reportes
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="../../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
+                                </nav>
+                            </div> 
+                        </div>
+                        
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Iniciado sesión como:</div>
+                        Trabajador
+                    </div>
+                </nav>
+            </div>
 
 			<!-- TABLA -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Registrar usuario</h1>
+                        <h1 class="mt-4">Registrar Usuario</h1>
                         <div class="card mb-4">
                             <div class="card-body">
 
-                                <form method="post">
-                                    
+							<form method="post">
 									<div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Nombres</label>
                                         <input type="text" name="usu_nombres"class="form-control">
@@ -155,21 +200,13 @@
                                     </div>
 
 									<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Asignar empresa</label>
-                                        <select name="empr_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
-											<?php foreach($empresa["Detalles"] as $empresas):?>	
-											<option type="text" value="<?=$empresas["empr_id"]?>"><?= $empresas["empr_nombre"] ?></option>
-											<?php endforeach?>
-										</select>
+                                        <label for="exampleInputPassword1"  class="form-label">Token</label>
+                                        <input type="text" name="usu_usuario_token" class="form-control">
                                     </div>
 
 									<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Asignar Sucursal</label>
-                                        <select name="sucu_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
-											<?php foreach($sucursal["Detalles"] as $sucursales):?>	
-											<option type="text" value="<?=$sucursales["sucu_id"]?>"><?= $sucursales["sucu_nombre"] ?></option>
-											<?php endforeach?>
-										</select>
+                                        <label for="exampleInputPassword1"  class="form-label">Llave secreta</label>
+                                        <input type="text" name="usu_llave_secreta" class="form-control">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Registrar</button>
                                     <a href="empresa_html.php" class="btn btn-danger">Cancelar</a>

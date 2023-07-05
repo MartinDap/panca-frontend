@@ -1,45 +1,63 @@
-<?php
+<?php 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
+		
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://panca.informaticapp.com/pedidos/'.$_POST['ped_id'],
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'PUT',
+          CURLOPT_POSTFIELDS => 
+          'ped_num_pedido='.$_POST["ped_num_pedido"].
+          '&ped_tipo_compra='.$_POST["ped_tipo_compra"].
+          '&ped_estado_pedido='.$_POST["ped_estado_pedido"].
+          '&ped_detalles='.$_POST["ped_detalles"].
+          '&pla_id='.$_POST["pla_id"].
+          '&cli_id='.$_POST["cli_id"],
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/x-www-form-urlencoded',
+            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='   ),
+        ));
+        
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		$data = json_decode($response, true);
+		header("Location: pedidos_html.php");
+	}else{
 
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://panca.informaticapp.com/DetallePedido/'.$_GET['depe_id'],
+      CURLOPT_URL => 'https://panca.informaticapp.com/pedidos/'.$_GET['ped_id'],
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
       CURLOPT_TIMEOUT => 0,
       CURLOPT_FOLLOWLOCATION => true,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'PUT',
-      CURLOPT_POSTFIELDS => 
-      'ped_id='.$_POST["ped_id"].
-      '&depe_estado_comida='.$_POST["depe_estado_comida"].
-      '&depe_fecha='.$_POST["depe_fecha"].
-      '&tipa_id='.$_POST["tipa_id"].
-      '&depe_num_mesa='.$_POST["depe_num_mesa"].
-      '&deco_info_compra='.$_POST["deco_info_compra"].
-      '&tra_id='.$_POST["tra_id"].
-      '&ticon_id='.$_POST["ticon_id"],
+      CURLOPT_CUSTOMREQUEST => 'GET',
       CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/x-www-form-urlencoded',
-        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VBR04xOEVqRXdCOC5kenFDZFg1NW5OU3U2NTU5LkFHOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlcTNvN3M5Ly84Lmh6T3FneWdVcjZGcVdSN1hiYzNyQw=='
-      ),
+        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='  ),
     ));
 
-    $response = curl_exec($curl);
+		$response = curl_exec($curl);
 
-    curl_close($curl);
-    $data = json_decode($response, true);
-    header("Location: venta_html.php");
-
-
-}else{    
-
+		curl_close($curl);
+		$data = json_decode($response, true);
+        
+    /* tabla relacionada*/   
+    
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://panca.informaticapp.com/DetallePedido/'.$_GET['depe_id'],
+      CURLOPT_URL => 'https://panca.informaticapp.com/platos',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -55,14 +73,13 @@
     $response = curl_exec($curl);
 
     curl_close($curl);
-    $data = json_decode($response, true);
+    $platos = json_decode($response, true);  
 
-/* tabla relacionada*/
 
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://panca.informaticapp.com/pedidos',
+      CURLOPT_URL => 'https://panca.informaticapp.com/clientes',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -71,24 +88,23 @@
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => 'GET',
       CURLOPT_HTTPHEADER => array(
-        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VBR04xOEVqRXdCOC5kenFDZFg1NW5OU3U2NTU5LkFHOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlcTNvN3M5Ly84Lmh6T3FneWdVcjZGcVdSN1hiYzNyQw=='
+        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
       ),
     ));
 
     $response = curl_exec($curl);
 
     curl_close($curl);
-    $pedido = json_decode($response, true);
+    $clientes = json_decode($response, true);
+}
 
-
- }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Modificar Ventas</title>
+	<title>Modificar Pedidos</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="../../css/styles.css" rel="stylesheet" />
@@ -122,7 +138,7 @@
         <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Principal
@@ -135,10 +151,10 @@
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_venta/pedidos_template/pedidos_html.php">Registrar Pedidos</a>
-                                    <a class="nav-link" href="module_venta/module_cliente/cliente_html.php">Registrar Clientes</a>
-                                    <a class="nav-link" href="module_venta/detalle_pedido_template/detalle_pedido_html.php">Detalles del Pedido</a>
-                                    <a class="nav-link" href="module_venta/reservas_template/reservas_html.php">Detalles de Reserva</a>
+                                    <a class="nav-link" href="../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -148,11 +164,10 @@
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajadores</a>
-                                    <a class="nav-link" href="module_seguridad/usuario_template/usuario_html.php">Registrar Perfiles</a>
-                                    <a class="nav-link" href="module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
-                                    <a class="nav-link" href="module_seguridad/empresa_template/empresa_html.php">Registrar Empresa</a>
-                                    
+                                    <a class="nav-link" href="../../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCompras" aria-expanded="false" aria-controls="collapseLayouts">
@@ -162,13 +177,14 @@
                             </a>
                             <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_compras/platos_template/platos_html.php">Registrar Platos</a>
-                                    <a class="nav-link" href="module_compras/tipo_producto_template/tipo_producto_html.php">Registrar tipo de producto</a>
-                                    <a class="nav-link" href="module_compras/productos_template/productos_html.php">Registrar Productos</a>
-                                    <a class="nav-link" href="module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>
-                                    <a class="nav-link" href="module_compras/inventario_template/inventario_html.php">Inventario</a>
+                                    <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
+                                    <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
+                                    <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
-                            </div>
+                            </div> 
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReportes" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="bi bi-clipboard-data-fill"></i></i></div>
@@ -177,12 +193,8 @@
                             </a>
                             <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="module_reportes/reportes_clientes_template/reportes_clientes_html.php">Reporte de Clientes</a>
-                                    <a class="nav-link" href="module_reportes/reportes_pedidos_template/reportes_pedidos_html.php">Reporte de Pedidos</a>
-                                <a class="nav-link" href="module_reportes/reportes_productos_template/reportes_productos_html.php">Reporte de Inventario</a>
-                                    <a class="nav-link" href="module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
-                                    <a class="nav-link" href="module_reportes/reportes_reservas_template/reportes_reservas_html.php">Reporte de Reservas</a>
-                                    <a class="nav-link" href="module_reportes/reportes_ventas_template/reportes_ventas_html.php">Reporte de Ventas</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
                                 </nav>
                             </div> 
                         </div>
@@ -195,69 +207,70 @@
                 </nav>
             </div>
 
-            <!-- TABLA -->
+			<!-- TABLA -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Modificar Venta</h1>
+                        <h1 class="mt-4">Modificar Pedido</h1>
                         <div class="card mb-4">
                             <div class="card-body">
 
                                 <form method="post">
-                                    <div class="mb-3">
-                                        <input type="hidden" name="depe_id" value="<?= $data["Detalles"][0]['depe_id'] ?>">
-
-                                        <label for="exampleInputEmail1" class="form-label">Fecha</label>
-                                        <input type="text" name="depe_fecha" value="<?= $data["Detalles"][0]['depe_fecha'] ?>" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1"  class="form-label">Número de Mesa</label>
-                                        <input type="text" name="depe_num_mesa" value="<?= $data["Detalles"][0]['depe_num_mesa'] ?>" class="form-control">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Información</label>
-                                        <input type="text" name="deco_info_compra" value="<?= $data["Detalles"][0]['deco_info_compra'] ?>" class="form-control">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Número de Pedido</label>
-                                        <input type="text" name="ped_num_pedido" value="<?= $data["Detalles"][0]['ped_num_pedido'] ?>" class="form-control">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Tipo de venta</label>
-                                        <input type="text" name="ped_tipo_compra" value="<?= $data["Detalles"][0]['ped_tipo_compra'] ?>" class="form-control">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Estado del Pedido</label>
-                                        <input type="text" name="ped_estado_pedido" value="<?= $data["Detalles"][0]['ped_estado_pedido'] ?>" class="form-control">
-                                    </div>
-
-                                    <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Modifique el Tipo de Pago</label>
-                                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected>Tipo de pago</option>
-                                        <option value="1">Tarjeta</option>
-                                        <option value="2">Contado</option>
-                                        <option value="3">Vuelto</option>
-                                      </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Modifique el Tipo de Consumo</label>
-                                      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected>Tipo  de consumo</option>
-                                        <option value="1">Consumo en el local</option>
-                                        <option value="2">Consumo exterior</option>
-                                      </select>
-                                    </div>
-
                                     
-                                    <button type="submit" class="btn btn-primary">Actualizar</button>
-                                    <a href="venta_html.php" class="btn btn-danger">Cancelar</a>
+                                    <div class="mb-3">
+                                        <input type="hidden" name="ped_id" value="<?= $data["Detalles"]["0"]['ped_id'] ?>">
+                                        <input type="hidden" name="sucu_id" value="<?= $data["Detalles"]["0"]['sucu_id'] ?>">
+                                        <label for="exampleInputEmail1" class="form-label">Número de pedido</label>
+                                        <input type="number" name="ped_num_pedido" class="form-control" value="<?= $data["Detalles"]["0"]['ped_num_pedido'] ?>">            
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Tipo de compra</label>
+                                        <select name="ped_tipo_compra" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                            <option type="text" value="<?=$data["Detalles"]["0"]['ped_tipo_compra']?>"><?= $data["Detalles"]["0"]['ped_tipo_compra'] ?> - Seleccionado</option>
+                                            <option type="text" value="Contado">Contado</option>
+                                            <option type="text" value="Vuelto">Vuelto</option>
+                                            
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Estado del pedido</label>
+                                        <select name="ped_estado_pedido" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                            <option type="text" value="<?=$data["Detalles"]["0"]['ped_estado_pedido']?>"><?= $data["Detalles"]["0"]['ped_estado_pedido'] ?> - Seleccionado</option>
+                                            <option type="text" value="Pedido">Pedido</option>
+                                            <option type="text" value="Espera">Espera</option>
+                                            <option type="text" value="Confirmado">Confirmado</option>
+                                            <option type="text" value="Entregado">Entregado</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Detalle del pedido</label>
+                                        <input type="text" name="ped_detalles"  class="form-control" value="<?= $data["Detalles"]["0"]['ped_detalles'] ?>">
+                                    </div>                                                                  
+
+                                    <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Seleccione el plato de comida</label>
+                                    <select name="pla_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                      <?php foreach($platos["Detalles"] as $platos):?>	
+                                      <option type="text" value="<?=$platos["pla_id"]?>"><?= $platos["pla_comida"] ?></option>
+                                      <?php endforeach?>
+                                    </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Seleccione el cliente</label>
+                                    <select name="cli_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                      <?php foreach($clientes["Detalles"] as $clientes):?>	
+                                      <option type="text" value="<?=$clientes["cli_id"]?>"><?= $clientes["per_nombres"] ?></option>
+                                      <?php endforeach?>
+                                    </select>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-success">Actualizar</button>
+                                    <a href="pedidos_html.php" class="btn btn-danger">Cancelar</a>
                                 </form>
                             </div>
                         </div>
@@ -283,3 +296,4 @@
         <script src="../../js/datatables-simple-demo.js"></script>
     </body>
 </html>
+

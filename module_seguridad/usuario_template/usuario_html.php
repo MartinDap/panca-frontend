@@ -3,7 +3,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://cevicherias.informaticapp.com/usuarios',
+  CURLOPT_URL => 'https://panca.informaticapp.com/usuarios',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -61,7 +61,7 @@ $data = json_decode($response, true);
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Principal
@@ -74,12 +74,10 @@ $data = json_decode($response, true);
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registrar Pedidos</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Ventas</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Clientes</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de pago</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de pedido</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar el tipo de reserva</a>
+                                    <a class="nav-link" href="../../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -89,11 +87,9 @@ $data = json_decode($response, true);
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registrar Usuarios</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Perfiles</a>
-                                    <a class="nav-link" href="../permisos_template/permiso_html.php">Registrar Permisos</a>
-                                    <a class="nav-link" href="">Registrar Empresa</a>
-                                    <a class="nav-link" href="sucursal_template/sucursal_html.php">Registrar Sucursales</a>
+                                    <a class="nav-link" href="../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
@@ -104,11 +100,11 @@ $data = json_decode($response, true);
                             </a>
                             <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registrar Productos</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar tipo de producto</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Stock</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Proveedores</a>
-                                    <a class="nav-link" href="layout-static.html">Registrar Pagos</a>
+                                    <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
+                                    <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
+                                    <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div> 
@@ -120,14 +116,8 @@ $data = json_decode($response, true);
                             </a>
                             <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Reporte de Ventas</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Compras</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Pedidos</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Clientes</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de stock</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Reserva</a>
-                                    <a class="nav-link" href="layout-static.html">Reporte de Comentarios</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html"></a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
                                 </nav>
                             </div> 
                         </div>
@@ -168,7 +158,7 @@ $data = json_decode($response, true);
 											<td><?= $usuarios["usu_usuario"] ?></td>
 											<td><?= $usuarios["tiad_nombre"] ?></td>
 											<td><a href="usuario_editar_html.php?usu_id=<?= $usuarios['usu_id'] ?>" class="btn "><i class="fa-solid fa-pen-to-square"></i></a></td>
-											<td><a href="usuario_eliminar_html.php?usu_id=<?= $usuarios['usu_id'] ?>" class="btn"><i class="fas fa-trash" color="#FF0000" ></i></td>
+											<td><a href="usuario_eliminar.php?usu_id=<?= $usuarios['usu_id'] ?>" class="btn"><i class="fas fa-trash" color="#FF0000" ></i></td>
 										</tr>
 										<?php endforeach ?>
 									</tbody>

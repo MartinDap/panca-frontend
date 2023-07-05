@@ -1,95 +1,91 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-		$curl = curl_init();
+$curl = curl_init();
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://panca.informaticapp.com/personas',
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://panca.informaticapp.com/DetallePedido/'.$_GET['depe_id'],
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'PUT',
+  CURLOPT_POSTFIELDS =>array(
+  'depe_fecha='.$_POST["depe_fecha"].
+  '&depe_num_mesa='.$_POST["depe_num_mesa"].
+  '&deco_info_compra='.$_POST["deco_info_compra"].
+  '&ped_num_pedido='.$_POST["ped_num_pedido"].
+  '&ped_tipo_compra='.$_POST["ped_tipo_compra"].
+  '&ped_estado_pedido='.$_POST["ped_estado_pedido"].
+  '&ped_detalles='.$_POST["ped_detalles"].
+  '&tipa_pago='.$_POST["tipa_pago"].
+  '&ticon_consumo='.$_POST["ticon_consumo"].
+  '&ped_id='.$_POST["ped_id"],
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/x-www-form-urlencoded',
+    'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
+  ),
+),
+  ));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+$data = json_decode($response, true);
+header("Location: detalle_pedido_html.php");
+}else{             
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://panca.informaticapp.com/DetallePedido/'.$_GET['depe_id'],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => 0,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 
-            'per_nombres='.$_POST["per_nombres"].
-            '&per_apellidos='.$_POST["per_apellidos"].
-            '&per_telefono='.$_POST["per_telefono"].
-            '&per_dni='.$_POST["per_dni"].
-            '&per_correo='.$_POST["per_correo"],
-        CURLOPT_HTTPHEADER => array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
-        ),
-        ));
+        CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='  ),
+    ));
+    $response = curl_exec($curl);
 
-		$response = curl_exec($curl);
+    curl_close($curl);
+    $data = json_decode($response, true);
 
-		curl_close($curl);
-		$data = json_decode($response, true);
+/* tabla relacionada*/
+$curl = curl_init();
 
-        /*Agregando la persona a cliente */
-        $idpersona = $data["per_id"];
-        //var_dump($idpersona);
+curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://panca.informaticapp.com/pedidos',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+      'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VnVHZPcXhGNVg5MmZ6OGxyOGtuZHM0MGZBT2JWY0U2Om8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlLjF4VzB4NEZVWmNXNlpKYTVMMi5iUS5jekVyRzdpcQ=='
+    ),
+  ));
 
-		$curl = curl_init();
+  $response = curl_exec($curl);
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://panca.informaticapp.com/trabajadores',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 
-        'per_id='.$idpersona.
-        '&tra_sueldo='.$_POST["tra_sueldo"].
-        '&titra_id='.$_POST["titra_id"],
-        CURLOPT_HTTPHEADER => array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
-        ),
-        ));
+  curl_close($curl);
+  $pedido = json_decode($response, true);
 
-		$response = curl_exec($curl);
 
-		curl_close($curl);
-		$data2 = json_decode($response, true);
-        //var_dump($data2);
-		header("Location: trabajador_html.php");
-	}else{
-		/* Tabla de Tipo Trabajador*/
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'http://cevicherias.informaticapp.com/TipoTrabajador',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
-		),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$tipoTrabajador = json_decode($response, true);
-	}
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Registrar Trabajador</title>
+	<title>Modificar Ventas</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="../../css/styles.css" rel="stylesheet" />
@@ -120,7 +116,7 @@
             </ul>
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
+        <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                     <div class="nav">
@@ -136,10 +132,10 @@
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
-                                    <a class="nav-link" href="../../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
-                                    <a class="nav-link" href="../../cliente_template/cliente_html.php">Registrar Clientes</a>
-                                    <a class="nav-link" href="../../reservas_template/reservas_html.php">Registrar Reservas</a>
+                                    <a class="nav-link" href="../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                                    <a class="nav-link" href="../cliente_template/cliente_html.php">Registrar Clientes</a>
+                                    <a class="nav-link" href="../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -149,9 +145,9 @@
                             </a>
                             <div class="collapse" id="collapseSeguridad" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
-                                    <a class="nav-link" href="../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
-                                    <a class="nav-link" href="../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
+                                    <a class="nav-link" href="../../module_seguridad/permisos_template/permiso_html.php">Registrar Permisos</a>
+                                    <a class="nav-link" href="../../module_seguridad/trabajador_template/trabajador_html.php">Registrar Trabajador</a>
+                                    <a class="nav-link" href="../../module_seguridad/usuario_template/usuario_html.php">Registrar Usuario</a>
                                     <a class="nav-link" href="layout-sidenav-light.html"></a>
                                 </nav>
                             </div>  
@@ -192,51 +188,37 @@
                 </nav>
             </div>
 
-			<!-- TABLA -->
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Registrar Trabajador</h1>
-                        <div class="card mb-4">
-                            <div class="card-body">
+<div class="container">
+	<h1>Modificar Venta</h1>
+	<form method="post" class="col-xl-8 offset-2">
+  <input type="hidden" name="depe_id" value="<?= $data["Detalles"][0]['depe_id'] ?>">
+		<input type="text" name="depe_fecha" class="form-control" value="<?= $data["Detalles"][0]['depe_fecha'] ?>">
+		<input type="text" name="depe_num_mesa" class="form-control" value="<?= $data["Detalles"][0]['depe_num_mesa'] ?>">
+		<input type="text" name="deco_info_compra"  class="form-control" value="<?= $data["Detalles"][0]['deco_info_compra'] ?>">
+		<input type="text" name="ped_num_pedido"  class="form-control" value="<?= $data["Detalles"][0]['ped_num_pedido'] ?>">
+    <input type="text" name="ped_tipo_compra"  class="form-control" value="<?= $data["Detalles"][0]['ped_tipo_compra'] ?>">
+    <input type="text" name="ped_estado_pedido"  class="form-control" value="<?= $data["Detalles"][0]['ped_estado_pedido'] ?>">
+    <input type="text" name="ped_detalles"  class="form-control" value="<?= $data["Detalles"][0]['ped_detalles'] ?>">
+  
 
-                                <form method="post">
-								<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Nombres</label>
-                                        <input type="text" name="per_nombres" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Apellidos</label>
-                                        <input type="text" name="per_apellidos" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Telefono</label>
-                                        <input type="text" name="per_telefono" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">DNI</label>
-                                        <input type="text" name="per_dni" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Correo</label>
-                                        <input type="text" name="per_correo" class="form-control" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1"  class="form-label">Sueldo</label>
-                                        <input type="text" name="tra_sueldo" class="form-control">
-                                    </div>
 
-									<div class="mb-3">
-										<label for="exampleInputEmail1" class="form-label">Asignar Tipo Trabajador</label>
-                                        <select name="titra_id" class="form-select form-select-sm" aria-label=".form-select-sm example" >
-											<?php foreach($tipoTrabajador["Detalles"] as $TipoTrabajador):?>	
-											<option type="text" value="<?=$TipoTrabajador["titra_id"]?>"><?= $TipoTrabajador["titra_rol"] ?></option>
-											<?php endforeach?>
-										</select>
-                                    </div>
 
-                                    <button type="submit" class="btn btn-primary">Registrar</button>
-                                    <a href="trabajador_html.php" class="btn btn-danger">Cancelar</a>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+			<option selected>Tipo de pago</option>
+			<option value="1">Tarjeta</option>
+			<option value="2">Contado</option>
+      <option value="3">Vuelto</option>
+      </select>
+
+      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+			<option selected>Tipo  de consumo</option>
+			<option value="1">Consumo en el local</option>
+			<option value="2">Consumo exterior</option>
+      </select>
+
+
+      <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    <a href="detalle_pedido_html.php" class="btn btn-danger">Cancelar</a>
                                 </form>
                             </div>
                         </div>

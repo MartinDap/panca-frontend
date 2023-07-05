@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://cevicherias.informaticapp.com/trabajadores/'.$_GET['tra_id'],
+  CURLOPT_URL => 'https://panca.informaticapp.com/trabajadores/'.$_GET['tra_id'],
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
