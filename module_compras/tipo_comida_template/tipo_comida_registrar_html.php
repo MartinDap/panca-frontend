@@ -4,28 +4,27 @@
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://panca.informaticapp.com/TipoProducto',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 
-        'tipr_tipo='.$_POST["tipr_tipo"].
-        '&tipr_descripcion='.$_POST["tipr_descripcion"],
-        CURLOPT_HTTPHEADER => array(
+      CURLOPT_URL => 'https://panca.informaticapp.com/TipoComida',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => 
+      'tico_nombre='.$_POST["tico_nombre"],
+      CURLOPT_HTTPHEADER => array(
         'Content-Type: application/x-www-form-urlencoded',
         'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VBR04xOEVqRXdCOC5kenFDZFg1NW5OU3U2NTU5LkFHOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlcTNvN3M5Ly84Lmh6T3FneWdVcjZGcVdSN1hiYzNyQw=='
-        ),
+      ),
     ));
 
     $response = curl_exec($curl);
 
     curl_close($curl);
     $data = json_decode($response, true);
-    header("Location: tipo_producto_html.php");
+    header("Location: tipo_comida_html.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -33,7 +32,7 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Registrar Tipo de Producto</title>
+    <title>Registrar Tipo de Comida</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
       <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="../../css/styles.css" rel="stylesheet" />
@@ -105,10 +104,10 @@
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
+                              <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
-                                    <a class="nav-link" href="../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
-                                    <a class="nav-link" href="../../module_compras/tipo_comida_template/tipo_comida_html.php">Registrar Tipo de Comida</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../module_compras/tipo_comida_template/tipo_comida_html.php">Registrar Tipo de Comida</a>
                                     <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
                                     <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
                                     <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
@@ -141,23 +140,18 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Registrar Tipos de Productos</h1>
+                        <h1 class="mt-4">Registrar Tipos de Comida</h1>
                         <div class="card mb-4">
                             <div class="card-body">
                             <form method="post" class="col-xl-8 offset-2">
                                 
                               <div class="mb-3">
-                                <label for="exampleInputPassword1"  class="form-label">Nombre del Tipo de Producto</label>
-                                <input type="text" name="tipr_tipo" placeholder="Escribir" class="form-control">
-                              </div>
-
-                              <div class="mb-3">
-                                <label for="exampleInputPassword1"  class="form-label">Dirección del Tipo de Producto</label>
-                                <input type="text" name="tipr_descripcion" placeholder="Escribir" class="form-control">
+                                <label for="exampleInputPassword1"  class="form-label">Nombre del Tipo de Comida</label>
+                                <input type="text" name="tico_nombre" placeholder="Escribir" class="form-control">
                               </div>
 
                               <button type="submit" class="btn btn-success">Guardar</button>
-                              <a href="tipo_producto_html.php" class="btn btn-danger">Cancelar</a>
+                              <a href="tipo_comida_html.php" class="btn btn-danger">Cancelar</a>
                             </form>
                             </div>
                         </div>

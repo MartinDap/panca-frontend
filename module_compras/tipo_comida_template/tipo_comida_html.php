@@ -1,54 +1,48 @@
 <?php
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
-        
+
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://panca.informaticapp.com/TipoProducto',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 
-        'tipr_tipo='.$_POST["tipr_tipo"].
-        '&tipr_descripcion='.$_POST["tipr_descripcion"],
-        CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/x-www-form-urlencoded',
+      CURLOPT_URL => 'https://panca.informaticapp.com/TipoComida',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
         'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VBR04xOEVqRXdCOC5kenFDZFg1NW5OU3U2NTU5LkFHOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlcTNvN3M5Ly84Lmh6T3FneWdVcjZGcVdSN1hiYzNyQw=='
-        ),
+      ),
     ));
 
     $response = curl_exec($curl);
 
     curl_close($curl);
     $data = json_decode($response, true);
-    header("Location: tipo_producto_html.php");
-	}
 ?>
+
 <!DOCTYPE html>
-  <html lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Registrar Tipo de Producto</title>
+    <title>Tipo Comida</title>
+    <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-      <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="../../css/styles.css" rel="stylesheet" />
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-      <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
   </head>
-
-<body class="sb-nav-fixed">
+  <body class="sb-nav-fixed">
         <!-- MAIN -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">    BRAXLY   </a>
+            <a class="navbar-brand ps-3" href="index.html">BRAXLY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -105,10 +99,10 @@
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
+                              <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
-                                    <a class="nav-link" href="../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
-                                    <a class="nav-link" href="../../module_compras/tipo_comida_template/tipo_comida_html.php">Registrar Tipo de Comida</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../module_compras/tipo_comida_template/tipo_comida_html.php">Registrar Tipo de Comida</a>
                                     <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
                                     <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
                                     <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
@@ -141,24 +135,29 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Registrar Tipos de Productos</h1>
-                        <div class="card mb-4">
+                        <h1 class="mt-4">Lista de Tipos de Productos</h1>
+                        <div class="card mb-2">
                             <div class="card-body">
-                            <form method="post" class="col-xl-8 offset-2">
-                                
-                              <div class="mb-3">
-                                <label for="exampleInputPassword1"  class="form-label">Nombre del Tipo de Producto</label>
-                                <input type="text" name="tipr_tipo" placeholder="Escribir" class="form-control">
-                              </div>
-
-                              <div class="mb-3">
-                                <label for="exampleInputPassword1"  class="form-label">Dirección del Tipo de Producto</label>
-                                <input type="text" name="tipr_descripcion" placeholder="Escribir" class="form-control">
-                              </div>
-
-                              <button type="submit" class="btn btn-success">Guardar</button>
-                              <a href="tipo_producto_html.php" class="btn btn-danger">Cancelar</a>
-                            </form>
+                                <div class="card-body px-0">
+                                    <a href="tipo_comida_registrar_html.php" class="btn btn-primary">Registrar</a>
+                                </div>
+                                <table class="table">
+                                  <thead class="thead-light">
+                                    <tr>
+                                      <th scope="col">Tipo Comida</th>
+                                      <th scope="col" colspan="2">Operaciones</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <?php foreach($data["Detalles"] as $tipo_comida): ?>
+                                    <tr>
+                                      <td><?= $tipo_comida["tico_nombre"] ?></td>
+                                      <td><a href="tipo_comida_editar_html.php?tico_id=<?= $tipo_comida['tico_id'] ?>" class="btn"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                      <td><a href="tipo_comida_eliminar_html.php?tico_id=<?= $tipo_comida['tico_id'] ?>" class="btn"><i class="fas fa-trash" color="#FF0000" ></i></a></td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                  </tbody>
+                              </table>
                             </div>
                         </div>
                     </div>
@@ -183,3 +182,10 @@
         <script src="../../js/datatables-simple-demo.js"></script>
     </body>
 </html>
+
+
+
+
+
+
+

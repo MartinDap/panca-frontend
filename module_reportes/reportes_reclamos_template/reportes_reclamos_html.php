@@ -102,6 +102,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
                                     <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_comida_template/tipo_comida_html.php">Registrar Tipo de Comida</a>
                                     <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
                                     <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
                                     <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
@@ -116,7 +117,7 @@
                             </a>
                             <div class="collapse" id="collapseReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
+                                    <a class="nav-link" href="../../module_reportes/reportes_inventario_template/reportes_inventario_html.php">Reporte de Inventario</a>
                                     <a class="nav-link" href="../module_reportes/reportes_reclamos_template/reportes_reclamos_html.php">Reporte de Reclamos</a>
                                 </nav>
                             </div> 

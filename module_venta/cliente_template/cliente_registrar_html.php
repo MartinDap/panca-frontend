@@ -112,11 +112,11 @@
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
-                                    <a class="nav-link" href="../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="../../pedidos_template/pedidos_html.php">Registrar Pedidos</a>
+                                    <a class="nav-link" href="../../detalle_pedido_template/detalle_pedido_html.php">Registrar Ventas</a>
                                     <a class="nav-link" href="../cliente_template/cliente_html.php">Registrar Clientes</a>
-                                    <a class="nav-link" href="../reservas_template/reservas_html.php">Registrar Reservas</a>
+                                    <a class="nav-link" href="../../reservas_template/reservas_html.php">Registrar Reservas</a>
                                 </nav>
                             </div>  
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeguridad" aria-expanded="false" aria-controls="collapseLayouts">
@@ -141,6 +141,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="../../module_compras/platos_template/platos_html.php">Registrar Platos</a>
                                     <a class="nav-link" href="../../module_compras/tipo_producto_template/tipo_producto_html.php">Registrar Tipo de Producto</a>
+                                    <a class="nav-link" href="../../module_compras/tipo_comida_template/tipo_comida_html.php">Registrar Tipo de Comida</a>
                                     <a class="nav-link" href="../../module_compras/productos_template/productos_html.php">Registrar Productos</a>
                                     <a class="nav-link" href="../../module_compras/proveedores_template/proveedores_html.php">Registrar Proveedores</a>                                    
                                     <a class="nav-link" href="../../module_compras/inventario_template/inventario_html.php">Registrar Inventario</a>
