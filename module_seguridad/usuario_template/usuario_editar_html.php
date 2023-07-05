@@ -4,7 +4,7 @@
 		$curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://cevicherias.informaticapp.com/usuarios/'.$_POST['usu_id'],
+        CURLOPT_URL => 'https://panca.informaticapp.com/usuarios/'.$_POST['usu_id'],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -13,16 +13,16 @@
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'PUT',
         CURLOPT_POSTFIELDS => 
-            'usu_nombres='.$_POST["usu_nombres"].
-            '&usu_apellidos='.$_POST["usu_apellidos"].
-            '&usu_usuario='.$_POST["usu_usuario"].
+            'usu_usuario='.$_POST["usu_usuario"].
             '&usu_clave='.$_POST["usu_clave"].
             '&tiad_id='.$_POST["tiad_id"].
-            '&empr_id='.$_POST["empr_id"].
-            '&sucu_id='.$_POST["sucu_id"],
+            '&usu_nombres='.$_POST["usu_nombres"].
+            '&usu_apellidos='.$_POST["usu_apellidos"].
+            '&usu_usuario_token='.$_POST["usu_usuario_token"].
+            '&usu_llave_secreta='.$_POST["usu_llave_secreta"],
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
+            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
         ),
         ));
 
@@ -30,13 +30,14 @@
 
 		curl_close($curl);
 		$data = json_decode($response, true);
+        //var_dump($data);
 		header("Location: usuario_html.php");
 	}else{
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://cevicherias.informaticapp.com/usuarios/'.$_GET['usu_id'],
+        CURLOPT_URL => 'https://panca.informaticapp.com/usuarios/'.$_GET['usu_id'],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -45,64 +46,18 @@
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'GET',
         CURLOPT_HTTPHEADER => array(
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
-        ),
+            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='   ),
         ));
 
 		$response = curl_exec($curl);
 
 		curl_close($curl);
 		$data = json_decode($response, true);
-
-
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/sucursal',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
-		),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$sucursal = json_decode($response, true);
-
-		/* tabla relacionada*/
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://cevicherias.informaticapp.com/empresa',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-		CURLOPT_HTTPHEADER => array(
-			'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='
-		),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		$empresa = json_decode($response, true);
-
         /* tabla relacionada*/
 		$curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://cevicherias.informaticapp.com/TipoAdmin',
+        CURLOPT_URL => 'https://panca.informaticapp.com/TipoAdmin',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -111,8 +66,7 @@
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'GET',
         CURLOPT_HTTPHEADER => array(
-            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VxWmE4ZEtVREUxZFl5VmJsSDhEbDRuMllIaFkzYktTOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlRVJZdDJTL3FVM1VETFl6dTBaZmRvM3BtLmUzampBaQ=='
-        ),
+            'Authorization: Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VWYVRVZXpBOFQuSEYza25WTjZLUTVMSzBSc1Nwc0tPOm8yYW8wN29kZmhkZnJleGZoZ2RmaGRmZXJ0dGdlSGdrN1Q1dWswNGhrWFN1MG9GYmdBZFZ3dkxSbWt2dQ=='   ),
         ));
 
 		$response = curl_exec($curl);
@@ -234,14 +188,16 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Modificar usuario "<?= $data["Detalles"][0]['usu_nombres'] ?>"</h1>
+                        <h1 class="mt-4">Modificar usuario</h1>
                         <div class="card mb-4">
                             <div class="card-body">
 
-                            <form method="post">
+                            <form method="POST">
 									<div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Nombres</label>
                                         <input type="hidden" name="usu_id" value="<?= $data["Detalles"][0]['usu_id'] ?>">
+                                        <input type="hidden" name="usu_usuario_token" value="<?= $data["Detalles"][0]['usu_usuario_token'] ?>">
+                                        <input type="hidden" name="usu_llave_secreta" value="<?= $data["Detalles"][0]['usu_llave_secreta'] ?>">
                                         <input type="text" name="usu_nombres" value="<?= $data["Detalles"][0]['usu_nombres'] ?>" class="form-control">
                                     </div>
 									<div class="mb-3">
@@ -266,27 +222,7 @@
 											<?php endforeach?>
 										</select>
                                     </div>
-
-									<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Asignar empresa</label>
-                                        <select name="empr_id"  class="form-select form-select-sm" aria-label=".form-select-sm example" >
-                                            <option type="text" value="<?= $data["Detalles"][0]['empr_id'] ?>"><?= $data["Detalles"][0]['empr_nombre'] ?> - Seleccionado</option>
-											<?php foreach($empresa["Detalles"] as $empresas):?>	
-											<option type="text" value="<?=$empresas["empr_id"]?>"><?= $empresas["empr_nombre"] ?></option>
-											<?php endforeach?>
-										</select>
-                                    </div>
-
-									<div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Asignar Sucursal</label>
-                                        <select name="sucu_id"  class="form-select form-select-sm" aria-label=".form-select-sm example" >
-                                            <option type="text" value="<?= $data["Detalles"][0]['sucu_id'] ?>"><?= $data["Detalles"][0]['sucu_nombre'] ?> - Seleccionado</option>
-											<?php foreach($sucursal["Detalles"] as $sucursales):?>	
-											<option type="text" value="<?=$sucursales["sucu_id"]?>"><?= $sucursales["sucu_nombre"] ?></option>
-											<?php endforeach?>
-										</select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Registrar</button>
+                                    <button type="submit" class="btn btn-primary">Modificar</button>
                                     <a href="usuario_html.php" class="btn btn-danger">Cancelar</a>
                                 </form>
 
